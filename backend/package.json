@@ -14,7 +14,8 @@
     "@resume/shared": "*",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "pg": "^8.16.0"
+    "pg": "^8.16.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
