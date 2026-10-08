@@ -8,27 +8,20 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
   return (
-    <Stack gap="3" textAlign="center" maxW="2xl" mx="auto">
-      <Text
-        fontSize="sm"
-        fontWeight="semibold"
-        color="teal.fg"
-        textTransform="uppercase"
-        letterSpacing="wider"
-      >
+    <Stack gap="3" maxW="2xl">
+      <Text fontSize="sm" color="fg.muted">
         {eyebrow}
       </Text>
       <Heading
         as="h2"
-        fontSize={{ base: '3xl', md: '4xl' }}
+        fontSize={{ base: '2xl', md: '3xl' }}
+        fontWeight="semibold"
         letterSpacing="tight"
         css={{ textWrap: 'balance' }}
       >
         {title}
       </Heading>
-      <Text color="fg.muted" fontSize={{ base: 'md', md: 'lg' }}>
-        {description}
-      </Text>
+      <Text color="fg.muted">{description}</Text>
     </Stack>
   );
 }

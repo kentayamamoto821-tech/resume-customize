@@ -1,4 +1,4 @@
-import { Box, Card, Container, Flex, Icon, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Container, Icon, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import type { IconType } from 'react-icons';
 import { LuPalette, LuScanSearch, LuTarget } from 'react-icons/lu';
 import { SectionHeading } from './SectionHeading';
@@ -32,27 +32,25 @@ const pillars: Pillar[] = [
 
 export function Purpose() {
   return (
-    <Box as="section" id="purpose" py={{ base: '20', md: '28' }} scrollMarginTop="16">
-      <Container maxW="6xl">
+    <Box as="section" id="purpose" py={{ base: '16', md: '24' }} borderTopWidth="1px" scrollMarginTop="14">
+      <Container maxW="5xl">
         <SectionHeading
-          eyebrow="Project purpose"
+          eyebrow="Purpose"
           title="Stop sending the same resume to every job"
           description="Generic resumes get overlooked. The Resume Customization Engine produces a targeted, professional resume for each application, built from one complete record of your background."
         />
 
-        <SimpleGrid columns={{ base: 1, md: 3 }} gap="6" mt="14">
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: '10', md: '12' }} mt="14">
           {pillars.map((p) => (
-            <Card.Root key={p.title} variant="outline" rounded="xl">
-              <Card.Body gap="4" p="7">
-                <Flex boxSize="11" align="center" justify="center" rounded="lg" bg="teal.subtle">
-                  <Icon color="teal.fg" boxSize="5">
-                    <p.icon />
-                  </Icon>
-                </Flex>
-                <Card.Title fontSize="lg">{p.title}</Card.Title>
-                <Text color="fg.muted">{p.description}</Text>
-              </Card.Body>
-            </Card.Root>
+            <Stack key={p.title} gap="3">
+              <Icon boxSize="5" color="fg.muted">
+                <p.icon />
+              </Icon>
+              <Text fontWeight="medium">{p.title}</Text>
+              <Text color="fg.muted" fontSize="sm" lineHeight="tall">
+                {p.description}
+              </Text>
+            </Stack>
           ))}
         </SimpleGrid>
       </Container>
