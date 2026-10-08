@@ -8,24 +8,14 @@ const navItems = [
 
 export function Header() {
   return (
-    <Box
-      as="header"
-      position="sticky"
-      top="0"
-      zIndex="sticky"
-      bg="bg/80"
-      backdropFilter="blur(8px)"
-      borderBottomWidth="1px"
-    >
-      <Container maxW="6xl">
-        <Flex h="16" align="center" justify="space-between">
+    <Box as="header" position="sticky" top="0" zIndex="sticky" bg="bg" borderBottomWidth="1px">
+      <Container maxW="5xl">
+        <Flex h="14" align="center" justify="space-between">
           <HStack gap="2">
-            <Flex boxSize="8" align="center" justify="center" rounded="md" bg="teal.solid">
-              <Icon color="teal.contrast" boxSize="4">
-                <LuFileText />
-              </Icon>
-            </Flex>
-            <Text fontWeight="semibold" letterSpacing="tight">
+            <Icon boxSize="4.5">
+              <LuFileText />
+            </Icon>
+            <Text fontWeight="semibold" fontSize="sm">
               Resume Customizer
             </Text>
           </HStack>
@@ -38,14 +28,13 @@ export function Header() {
                   href={item.href}
                   color="fg.muted"
                   fontSize="sm"
-                  fontWeight="medium"
                   _hover={{ color: 'fg', textDecoration: 'none' }}
                 >
                   {item.label}
                 </Link>
               ))}
             </HStack>
-            <Button asChild size="sm" colorPalette="teal">
+            <Button asChild size="sm" variant="solid" colorPalette="gray">
               <a href="#get-started">Get started</a>
             </Button>
           </HStack>
