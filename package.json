@@ -1,0 +1,26 @@
+{
+  "name": "resume-customize",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "predev": "npm run build -w shared",
+    "dev": "concurrently -n shared,backend,frontend -c magenta,blue,green \"npm run dev -w shared\" \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w shared && npm run build -w backend && npm run build -w frontend",
+    "typecheck": "npm run build -w shared && npm run typecheck --workspaces --if-present",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "db:migrate": "npm run migrate -w backend"
+  },
+  "overrides": {
+    "shell-quote": "^1.11.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "typescript": "^5.9.0"
+  }
+}
