@@ -4,6 +4,7 @@ import { apiUrl, http } from './client';
 
 export const documentsApi = {
   list: () => http.get<DocumentFile[]>('/documents'),
+  get: (id: number) => http.get<DocumentFile>(`/documents/${id}`),
   importPdf: (file: File) => {
     const form = new FormData();
     form.append('file', file);
@@ -17,10 +18,20 @@ export const documentsApi = {
 
 export const documentKeys = {
   all: ['documents'] as const,
+  list: () => [...documentKeys.all, 'list'] as const,
+  detail: (id: number) => [...documentKeys.all, 'detail', id] as const,
 };
 
 export function useDocuments() {
-  return useQuery({ queryKey: documentKeys.all, queryFn: documentsApi.list });
+  return useQuery({ queryKey: documentKeys.list(), queryFn: documentsApi.list });
+}
+
+export function useDocument(id: number) {
+  return useQuery({
+    queryKey: documentKeys.detail(id),
+    queryFn: () => documentsApi.get(id),
+    enabled: Number.isInteger(id) && id > 0,
+  });
 }
 
 function useInvalidateDocuments() {

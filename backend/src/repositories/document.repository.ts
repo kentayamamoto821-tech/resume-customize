@@ -22,6 +22,14 @@ async function findAll(): Promise<DocumentFile[]> {
   return rows;
 }
 
+async function findById(id: number): Promise<DocumentFile | null> {
+  const { rows } = await pool.query<DocumentFile>(
+    `SELECT ${DOCUMENT_COLUMNS} FROM documents WHERE id = $1`,
+    [id],
+  );
+  return rows[0] ?? null;
+}
+
 async function findContent(
   id: number,
 ): Promise<{ fileName: string; mimeType: string; content: Buffer } | null> {
@@ -47,4 +55,4 @@ async function remove(id: number): Promise<boolean> {
   return (rowCount ?? 0) > 0;
 }
 
-export const documentRepository = { findAll, findContent, create, remove };
+export const documentRepository = { findAll, findById, findContent, create, remove };

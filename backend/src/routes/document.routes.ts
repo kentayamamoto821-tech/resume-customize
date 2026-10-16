@@ -6,5 +6,6 @@ export const documentRouter = Router();
 
 documentRouter.get('/', documentController.list);
 documentRouter.post('/', singleFileUpload('file'), documentController.importPdf);
+documentRouter.get('/:id', documentController.getById);
 documentRouter.get('/:id/file', documentController.getFile);
 documentRouter.delete('/:id', documentController.remove);

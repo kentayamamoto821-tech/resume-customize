@@ -1,6 +1,6 @@
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen) 
 ![Export](https://img.shields.io/badge/Export-PDF%20%7C%20DOCX-orange) 
-![License](https://img.shields.io/badge/License-MIT-blue)
+
 
 # Resume Customization Engine
 
@@ -60,6 +60,3 @@ The engine processes user input through a structured 6-step pipeline:
 3. Run the application: `npm start` or `python app.py`
 
 ---
-
-## 📄 License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

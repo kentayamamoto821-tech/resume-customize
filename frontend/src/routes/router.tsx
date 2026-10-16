@@ -24,6 +24,14 @@ export const router = createBrowserRouter([
           return { Component: DocumentsPage };
         },
       },
+      {
+        path: `${paths.documents}/:id`,
+        // Includes pdf.js, so it's only downloaded when a PDF is opened.
+        lazy: async () => {
+          const { DocumentViewerPage } = await import('../pages/DocumentViewerPage');
+          return { Component: DocumentViewerPage };
+        },
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

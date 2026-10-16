@@ -14,6 +14,7 @@
     "@emotion/react": "^11.14.0",
     "@resume/shared": "*",
     "@tanstack/react-query": "^5.104.3",
+    "pdfjs-dist": "^6.4.299",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.7.0",

@@ -39,6 +39,12 @@ async function importPdf(file: UploadedFile | undefined): Promise<DocumentFile> 
   });
 }
 
+async function getById(id: number): Promise<DocumentFile> {
+  const document = await documentRepository.findById(id);
+  if (!document) throw notFound('Document');
+  return document;
+}
+
 async function getContent(id: number) {
   const document = await documentRepository.findContent(id);
   if (!document) throw notFound('Document');
@@ -50,4 +56,4 @@ async function remove(id: number): Promise<void> {
   if (!deleted) throw notFound('Document');
 }
 
-export const documentService = { list, importPdf, getContent, remove };
+export const documentService = { list, importPdf, getById, getContent, remove };
