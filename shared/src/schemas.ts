@@ -13,13 +13,24 @@ export const listQuerySchema = z.object({
 export type ListQuery = z.infer<typeof listQuerySchema>;
 
 export const userCreateSchema = z.object({
-  fullName: z.string().trim().min(1).max(200),
-  phone: z.string().trim().min(1).max(50),
+  fullName: z.string().trim().min(1, 'Full name is required').max(200, 'Full name is too long'),
+  phone: z.string().trim().min(1, 'Phone is required').max(50, 'Phone is too long'),
   // Normalize before validating so " Ada@Example.com" is accepted and stored lowercase.
-  email: z.string().trim().toLowerCase().pipe(z.email()),
-  linkedinUrl: z.url().nullish(),
+  email: z.string().trim().toLowerCase().pipe(z.email('Enter a valid email address')),
+  // http(s) only: the URL is rendered as a link, so javascript: and similar must be rejected.
+  linkedinUrl: z.url({ protocol: /^https?$/, error: 'Enter a valid http(s) URL' }).nullish(),
 });
 export type UserCreateInput = z.infer<typeof userCreateSchema>;
+
+export const userListQuerySchema = listQuerySchema.extend({
+  q: z
+    .string()
+    .trim()
+    .max(200)
+    .optional()
+    .transform((v) => v || undefined),
+});
+export type UserListQuery = z.infer<typeof userListQuerySchema>;
 
 export const userUpdateSchema = userCreateSchema
   .partial()

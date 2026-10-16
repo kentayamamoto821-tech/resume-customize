@@ -11,7 +11,13 @@ export interface Paginated<T> {
   offset: number;
 }
 
+/** A problem with one input field; `path` points at the field, e.g. ["email"]. */
+export interface ApiIssue {
+  path: (string | number)[];
+  message: string;
+}
+
 export interface ApiError {
   error: string;
-  details?: unknown;
+  details?: ApiIssue[];
 }

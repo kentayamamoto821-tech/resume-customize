@@ -10,7 +10,9 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router';
 import { LuArrowRight } from 'react-icons/lu';
+import { paths } from '../../routes/paths';
 
 export function Hero() {
   return (
@@ -40,14 +42,14 @@ export function Hero() {
             </Text>
 
             <HStack gap="3" flexWrap="wrap" pt="2">
-              <Button asChild colorPalette="gray">
-                <a href="#get-started">
+              <Button asChild>
+                <RouterLink to={paths.users}>
                   Build my resume
                   <LuArrowRight />
-                </a>
+                </RouterLink>
               </Button>
-              <Button asChild variant="ghost" colorPalette="gray">
-                <a href="#workflow">See how it works</a>
+              <Button asChild variant="ghost">
+                <RouterLink to={paths.workflow}>See how it works</RouterLink>
               </Button>
             </HStack>
           </Stack>
