@@ -1,5 +1,7 @@
 import { Box, Button, Container, Flex, Heading, Stack, Text } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router';
 import { LuArrowRight } from 'react-icons/lu';
+import { paths } from '../../routes/paths';
 
 export function CallToAction() {
   return (
@@ -23,9 +25,11 @@ export function CallToAction() {
               you apply to.
             </Text>
           </Stack>
-          <Button colorPalette="gray" flexShrink="0">
-            Create my profile
-            <LuArrowRight />
+          <Button asChild flexShrink="0">
+            <RouterLink to={paths.users}>
+              Create my profile
+              <LuArrowRight />
+            </RouterLink>
           </Button>
         </Flex>
       </Container>
