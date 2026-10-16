@@ -7,6 +7,10 @@ async function list(_req: Request, res: Response) {
   res.json(await documentService.list());
 }
 
+async function getById(req: Request, res: Response) {
+  res.json(await documentService.getById(idParamSchema.parse(req.params.id)));
+}
+
 async function importPdf(req: Request, res: Response) {
   res.status(201).json(await documentService.importPdf(req.file));
 }
@@ -29,4 +33,4 @@ async function remove(req: Request, res: Response) {
   res.status(204).end();
 }
 
-export const documentController = { list, importPdf, getFile, remove };
+export const documentController = { list, getById, importPdf, getFile, remove };

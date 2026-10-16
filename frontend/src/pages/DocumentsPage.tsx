@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Container, Stack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router';
 import { LuFileUp, LuFiles, LuTriangleAlert } from 'react-icons/lu';
 import { MAX_DOCUMENT_SIZE_BYTES, type DocumentFile } from '@resume/shared';
 import { useDeleteDocument, useDocuments, useImportPdf } from '../apis/documents';
@@ -9,6 +10,7 @@ import { FileImportButton } from '../components/ui/FileImportButton';
 import { PageHeader } from '../components/ui/PageHeader';
 import { StateMessage } from '../components/ui/StateMessage';
 import { toaster } from '../components/ui/toaster';
+import { paths } from '../routes/paths';
 import { getErrorMessage } from '../utils/errors';
 import { formatBytes } from '../utils/format';
 
@@ -28,6 +30,7 @@ function validatePdf(file: File): string | null {
 export function DocumentsPage() {
   const { data, isPending, isError, error, refetch } = useDocuments();
   const importPdf = useImportPdf();
+  const navigate = useNavigate();
   const deleteDocument = useDeleteDocument();
   const [pendingDelete, setPendingDelete] = useState<DocumentFile | null>(null);
 
@@ -38,8 +41,9 @@ export function DocumentsPage() {
       return;
     }
     try {
-      await importPdf.mutateAsync(file);
+      const imported = await importPdf.mutateAsync(file);
       toaster.success({ title: 'PDF imported', description: file.name });
+      navigate(paths.document(imported.id));
     } catch (err) {
       toaster.error({ title: 'Import failed', description: getErrorMessage(err) });
     }

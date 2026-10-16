@@ -1,7 +1,9 @@
 import { HStack, Icon, IconButton, Link, Skeleton, Table, Text } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router';
 import { LuDownload, LuFileText, LuTrash2 } from 'react-icons/lu';
 import type { DocumentFile } from '@resume/shared';
 import { documentsApi } from '../../apis/documents';
+import { paths } from '../../routes/paths';
 import { formatBytes, formatDate } from '../../utils/format';
 
 interface DocumentTableProps {
@@ -64,14 +66,8 @@ function DocumentRow({
           <Icon color="fg.muted" boxSize="4" flexShrink="0">
             <LuFileText />
           </Icon>
-          <Link
-            href={documentsApi.fileUrl(document.id)}
-            target="_blank"
-            rel="noopener noreferrer"
-            fontWeight="medium"
-            wordBreak="break-all"
-          >
-            {document.fileName}
+          <Link asChild fontWeight="medium" wordBreak="break-all">
+            <RouterLink to={paths.document(document.id)}>{document.fileName}</RouterLink>
           </Link>
         </HStack>
         <Text color="fg.muted" fontSize="xs" hideFrom="md" ps="6.5">
