@@ -33,11 +33,13 @@ function buildUrl(path: string, query?: QueryParams): string {
 
 async function request<T>(method: string, path: string, options: RequestOptions = {}): Promise<T> {
   const { query, body, signal } = options;
+  // FormData is sent as-is so the browser sets the multipart boundary header itself.
+  const isForm = body instanceof FormData;
   const res = await fetch(buildUrl(path, query), {
     method,
     signal,
-    headers: body === undefined ? undefined : { 'Content-Type': 'application/json' },
-    body: body === undefined ? undefined : JSON.stringify(body),
+    headers: body === undefined || isForm ? undefined : { 'Content-Type': 'application/json' },
+    body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
   });
 
   if (!res.ok) {
@@ -52,4 +54,7 @@ export const http = {
   post: <T>(path: string, body: unknown) => request<T>('POST', path, { body }),
   patch: <T>(path: string, body: unknown) => request<T>('PATCH', path, { body }),
   delete: <T = void>(path: string) => request<T>('DELETE', path),
+  upload: <T>(path: string, form: FormData) => request<T>('POST', path, { body: form }),
 };
+
+export const apiUrl = (path: string) => `${BASE_URL}${path}`;

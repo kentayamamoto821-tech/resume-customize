@@ -6,6 +6,7 @@ import { paths } from '../../routes/paths';
 const navItems = [
   { label: 'Workflow', to: paths.workflow },
   { label: 'Users', to: paths.users },
+  { label: 'Documents', to: paths.documents },
 ];
 
 export function Header() {
