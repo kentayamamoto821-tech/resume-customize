@@ -17,6 +17,13 @@ export const router = createBrowserRouter([
           return { Component: UsersPage };
         },
       },
+      {
+        path: paths.documents,
+        lazy: async () => {
+          const { DocumentsPage } = await import('../pages/DocumentsPage');
+          return { Component: DocumentsPage };
+        },
+      },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
