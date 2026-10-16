@@ -10,7 +10,14 @@ interface UserTableProps {
   onDelete: (user: User) => void;
 }
 
-const COLUMNS = ['Name', 'Email', 'Phone', 'LinkedIn', 'Updated'];
+// On small screens only Name (with the email beneath it) and the actions are shown.
+const COLUMNS = [
+  { label: 'Name' },
+  { label: 'Email', hideBelow: 'md' },
+  { label: 'Phone', hideBelow: 'md' },
+  { label: 'LinkedIn', hideBelow: 'lg' },
+  { label: 'Updated', hideBelow: 'lg' },
+] as const;
 const SKELETON_ROWS = 5;
 
 export function UserTable({ users, loading = false, onEdit, onDelete }: UserTableProps) {
@@ -20,8 +27,14 @@ export function UserTable({ users, loading = false, onEdit, onDelete }: UserTabl
         <Table.Header>
           <Table.Row bg="bg.subtle">
             {COLUMNS.map((col) => (
-              <Table.ColumnHeader key={col} color="fg.muted" fontWeight="medium" py="3">
-                {col}
+              <Table.ColumnHeader
+                key={col.label}
+                color="fg.muted"
+                fontWeight="medium"
+                py="3"
+                hideBelow={'hideBelow' in col ? col.hideBelow : undefined}
+              >
+                {col.label}
               </Table.ColumnHeader>
             ))}
             <Table.ColumnHeader w="1">
@@ -51,14 +64,21 @@ interface UserRowProps {
 function UserRow({ user, onEdit, onDelete }: UserRowProps) {
   return (
     <Table.Row>
-      <Table.Cell fontWeight="medium" whiteSpace="nowrap" py="3">
-        {user.fullName}
+      <Table.Cell py="3">
+        <Text fontWeight="medium" whiteSpace="nowrap">
+          {user.fullName}
+        </Text>
+        <Text color="fg.muted" fontSize="xs" hideFrom="md" wordBreak="break-all">
+          {user.email}
+        </Text>
       </Table.Cell>
-      <Table.Cell color="fg.muted">{user.email}</Table.Cell>
-      <Table.Cell color="fg.muted" whiteSpace="nowrap">
+      <Table.Cell color="fg.muted" hideBelow="md">
+        {user.email}
+      </Table.Cell>
+      <Table.Cell color="fg.muted" whiteSpace="nowrap" hideBelow="md">
         {user.phone}
       </Table.Cell>
-      <Table.Cell>
+      <Table.Cell hideBelow="lg">
         {isSafeHttpUrl(user.linkedinUrl) ? (
           <Link
             href={user.linkedinUrl}
@@ -76,7 +96,7 @@ function UserRow({ user, onEdit, onDelete }: UserRowProps) {
           <Text color="fg.subtle">—</Text>
         )}
       </Table.Cell>
-      <Table.Cell color="fg.muted" whiteSpace="nowrap">
+      <Table.Cell color="fg.muted" whiteSpace="nowrap" hideBelow="lg">
         {formatDate(user.updatedAt)}
       </Table.Cell>
       <Table.Cell>
@@ -108,7 +128,7 @@ function SkeletonRow() {
   return (
     <Table.Row>
       {COLUMNS.map((col) => (
-        <Table.Cell key={col} py="3.5">
+        <Table.Cell key={col.label} py="3.5" hideBelow={'hideBelow' in col ? col.hideBelow : undefined}>
           <Skeleton h="3.5" w="24" />
         </Table.Cell>
       ))}
