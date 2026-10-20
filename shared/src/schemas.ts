@@ -47,25 +47,6 @@ export interface User {
   updatedAt: string;
 }
 
-export const experienceInputSchema = z.object({
-  company: z.string().min(1),
-  title: z.string().min(1),
-  startDate: z.string().min(1),
-  endDate: z.string().optional(),
-  highlights: z.array(z.string()).default([]),
-});
-export type ExperienceInput = z.infer<typeof experienceInputSchema>;
-export type Experience = ExperienceInput & { id: number; userId: number };
-
-export const educationInputSchema = z.object({
-  institution: z.string().min(1),
-  degree: z.string().min(1),
-  fieldOfStudy: z.string().optional(),
-  graduationYear: z.number().int().optional(),
-});
-export type EducationInput = z.infer<typeof educationInputSchema>;
-export type Education = EducationInput & { id: number; userId: number };
-
 export const jobDescriptionInputSchema = z
   .object({
     rawText: z.string().optional(),
